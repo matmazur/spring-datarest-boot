@@ -12,19 +12,23 @@ public class Product implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_product")
     private Long id;
     private String name;
     private double price;
+    private int quantity;
     @ManyToOne
     private Producer producer;
 
-    public Product(String name, double price, Producer producer) {
-        this.name = name;
-        this.price = price;
-        this.producer = producer;
-    }
 
     public Product() {
+    }
+
+    public Product(String name, double price, int quantity, Producer producer) {
+        this.name = name;
+        this.price = price;
+        this.quantity = quantity;
+        this.producer = producer;
     }
 
     @Override
@@ -33,6 +37,7 @@ public class Product implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
         return Double.compare(product.price, price) == 0 &&
+                quantity == product.quantity &&
                 Objects.equals(id, product.id) &&
                 Objects.equals(name, product.name) &&
                 Objects.equals(producer, product.producer);
@@ -40,7 +45,7 @@ public class Product implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, price, producer);
+        return Objects.hash(id, name, price, quantity, producer);
     }
 
     @Override
@@ -49,6 +54,7 @@ public class Product implements Serializable {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", quantity=" + quantity +
                 ", producer=" + producer +
                 '}';
     }
@@ -77,6 +83,14 @@ public class Product implements Serializable {
         this.price = price;
     }
 
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public Producer getProducer() {
         return producer;
     }
@@ -85,4 +99,3 @@ public class Product implements Serializable {
         this.producer = producer;
     }
 }
-
