@@ -1,9 +1,11 @@
 package com.matmazur.springdatarestboot.model;
 
 import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 @Entity
+@XmlRootElement
 public class City {
 
     @GeneratedValue(strategy = GenerationType.AUTO)
