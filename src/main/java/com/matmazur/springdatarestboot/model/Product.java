@@ -1,28 +1,27 @@
 package com.matmazur.springdatarestboot.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.io.Serializable;
 import java.util.Objects;
 
 @Entity
 @XmlRootElement
-public class Product {
+public class Product implements Serializable {
+    private static final long serialVersionUID = 656787675743L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private String producer;
     private double price;
+    @ManyToOne
+    private Producer producer;
 
-
-    public Product(String name, String producer, double price) {
+    public Product(String name, double price, Producer producer) {
         this.name = name;
-        this.producer = producer;
         this.price = price;
+        this.producer = producer;
     }
 
     public Product() {
@@ -41,7 +40,7 @@ public class Product {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, producer, price);
+        return Objects.hash(id, name, price, producer);
     }
 
     @Override
@@ -49,8 +48,8 @@ public class Product {
         return "Product{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", producer='" + producer + '\'' +
                 ", price=" + price +
+                ", producer=" + producer +
                 '}';
     }
 
@@ -70,14 +69,6 @@ public class Product {
         this.name = name;
     }
 
-    public String getProducer() {
-        return producer;
-    }
-
-    public void setProducer(String producer) {
-        this.producer = producer;
-    }
-
     public double getPrice() {
         return price;
     }
@@ -85,5 +76,13 @@ public class Product {
     public void setPrice(double price) {
         this.price = price;
     }
-    
+
+    public Producer getProducer() {
+        return producer;
+    }
+
+    public void setProducer(Producer producer) {
+        this.producer = producer;
+    }
 }
+

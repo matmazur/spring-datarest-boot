@@ -1,6 +1,5 @@
 package com.matmazur.springdatarestboot;
 
-import com.matmazur.springdatarestboot.model.City;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
